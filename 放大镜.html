@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            vertical-align: top;
+        }
+        .box{
+            width: 350px;
+            height: 350px;
+            border: 1px solid gray;
+            margin: 100px;
+            position: relative;
+        }
+        .small{
+            position: relative;
+            left: 0;
+            top: 0;
+        }
+        .mask{
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, .3);
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            cursor: move;
+        }
+        .big{
+            width: 450px;
+            height: 450px;
+            border: 1px solid gray;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 400px;
+            display: none;
+        }
+        .big img{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="fdj">
+    <div class="small">
+        <img src="images/001.jpg" alt="">
+        <div class="mask"></div>
+    </div>
+    <div class="big">
+        <img src="images/0001.jpg" alt="">
+    </div>
+</div>
+</body>
+<script>
+    var fdj = document.getElementById("fdj");
+    var small = fdj.children[0];
+    var mask = small.children[1];
+    var big = fdj.children[1];
+    var x = 0;
+    var y = 0;
+    small.onmouseover = function () {
+        mask.style.display = "block";
+        big.style.display = "block";
+    }
+    small.onmouseout = function () {
+        mask.style.display = "none";
+        big.style.display = "none";
+
+    }
+    
+    small.onmousemove = function (event) {
+        var event = event || window.event;
+        // event.clientX - this.offsetParent.offsetLeft 是在fdj盒子内的坐标
+        // 再减去mask.offsetWidth / 2 是为了让mask的中心点对齐鼠标点
+        x = event.pageX - this.offsetParent.offsetLeft - mask.offsetWidth / 2;
+        y = event.pageY - this.offsetParent.offsetTop - mask.offsetHeight / 2;
+
+        if (x < 0){
+            x = 0;
+        }else if (x > small.offsetWidth - mask.offsetWidth){
+            x = small.offsetWidth - mask.offsetWidth;
+        }
+        if (y < 0){
+            y = 0;
+        }else if (y > small.offsetHeight - mask.offsetHeight){
+            y = small.offsetHeight - mask.offsetHeight;
+        }
+
+        mask.style.left = x + "px";
+        mask.style.top = y + "px";
+
+        // 当鼠标向右移动, big图片向左移动
+        // big图片800大  small 是350 所以他们之间移动对应要按照比例
+
+        var bili = big.offsetHeight / small.offsetHeight;
+
+        var bigImage = big.children[0];
+        bigImage.style.top = - y * bili + "px";
+        bigImage.style.left = - x * bili + "px";
+
+    }
+
+</script>
+</html>

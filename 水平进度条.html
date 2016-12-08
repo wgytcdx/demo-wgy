@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .scroll{
+            width: 400px;
+            height: 8px;
+            background-color: #cccccc;
+            margin: 100px;
+            position: relative;
+        }
+        .scroll .bar{
+            width: 10px;
+            height: 22px;
+            background-color: pink;
+            position: absolute;
+            left: 0;
+            top: -7px;
+            cursor: pointer;
+        }
+        .scroll .mask{
+            width: 0;
+            height: 8px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<div class="scroll" id="scroll_bar">
+    <div class="bar"></div>
+    <div class="mask"></div>
+</div>
+<div id="description"></div>
+<script>
+    var scrollBar = document.getElementById("scroll_bar");
+    var bar = scrollBar.children[0];
+    var mask = scrollBar.children[1];
+    var des = document.getElementById("description");
+
+    var leftValue;
+    bar.onmousedown = function (event) {
+        var event = event || window.event;
+
+        // 这里是this.offsetLeft 是bar在scroll中的左位移
+        // leftValue 是鼠标在bar中的左位移
+        leftValue = event.pageX - this.offsetLeft - 100;
+
+
+        document.onmousemove = function (event) {
+
+            // 在scrollbar盒子的x轴方向的距离
+            x = event.pageX - scrollBar.offsetLeft - leftValue;
+
+            if (x < 0){
+                x = 0;
+            }else if (x > 390){
+                x = 390;
+            }
+
+            bar.style.left = x + "px";
+            mask.style.width = x + "px";
+
+            // 防止拖动滑块时, 选中文字
+            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+
+//            des.innerHTML = "已经走了" + parseInt(x / 390 * 100) + "%";
+            des.innerHTML = (x/390*100).toFixed(2);
+            // 获取小数点后两位
+            var a = 1.2323232332;
+            console.log(a.toFixed(2));
+            console.log(x);
+
+        }
+    }
+    document.onmouseup = function () {
+        document.onmousemove = null;
+    }
+</script>
+</body>
+</html>

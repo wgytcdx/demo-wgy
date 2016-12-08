@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+        }
+        #big{
+            width: 490px;
+            height: 170px;
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        #imgs{
+            width: 2450px;
+            height: 170px;
+            position: absolute;
+        }
+        #imgs ul{
+            list-style: none;
+        }
+        #imgs li{
+            float: left;
+        }
+        #arrows{
+            position: absolute;
+            width: 490px;
+            display: none;
+        }
+        #arrows_left{
+
+            width: 20px;
+            height: 30px;
+            background-color: rgba(0,0,0,.5);
+            line-height: 30px;
+            margin-top: 70px;
+            color: white;
+            float: left;
+            cursor: pointer;
+
+        }
+        #arrows_right{
+
+            width: 20px;
+            height: 30px;
+            background-color: rgba(0,0,0,.5);
+            line-height: 30px;
+            margin-top: 70px;
+            color: white;
+            text-align: right;
+            float: right;
+            cursor: pointer;
+
+        }
+        #arrows_left:hover{
+            background-color: rgba(0,0,0,.25);
+        }
+        #arrows_right:hover{
+            background-color: rgba(0,0,0,.25);
+        }
+    </style>
+</head>
+<body>
+<div id="big">
+    <div id="imgs">
+        <ul>
+            <li><img src="轮播图/1.jpg" alt=""/></li>
+            <li><img src="轮播图/2.jpg" alt=""/></li>
+            <li><img src="轮播图/3.jpg" alt=""/></li>
+            <li><img src="轮播图/4.jpg" alt=""/></li>
+            <li><img src="轮播图/5.jpg" alt=""/></li>
+        </ul>
+    </div>
+    <div id="arrows">
+        <div id="arrows_left"><</div>
+        <div id="arrows_right">></div>
+    </div>
+</div>
+<script>
+    var left=document.getElementById("arrows_left");
+    var right=document.getElementById("arrows_right");
+    var arrows=document.getElementById("arrows");
+    var imgs=document.getElementById("imgs");
+    var big=document.getElementById("big");
+    var x=0;
+    var lead=0;
+    big.onmouseover=function(){
+        arrows.style.display="block";
+    };
+    big.onmouseout=function(){
+        arrows.style.display="none";
+    };
+    left.onclick=function(){
+            x=x+490;
+    };
+    right.onclick=function(){
+            x=x-490;
+    };
+    setInterval(function(){
+        if(x>=0){x=0}
+        if(x<=-1960){x=-1960}
+        lead=lead+(x-lead)/10;
+        imgs.style.left=lead+"px";
+            },10)
+</script>
+</body>
+</html>

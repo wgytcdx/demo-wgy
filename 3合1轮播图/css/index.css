@@ -1,0 +1,128 @@
+@charset "UTF-8";
+body{
+    background: #f5f5f5;
+}
+.jd_layout{
+    min-width: 300px;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    /*background-color: red;*/
+    /*height: 100px;*/
+
+}
+/*???  ?  ??*/
+.jd_header{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 40px;
+    z-index: 999;
+}
+/*???  ?  ????????*/
+.jd_header .jd_header_box{
+    min-width: 300px;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    background: rgba(201,21,35,0.85);
+    height: 40px;
+}
+/*logo*/
+.jd_header .jd_header_box .icon_logo{
+    background-position:0 -103px;
+    width: 60px;
+    height: 36px;
+    display: block;
+
+    position: absolute;
+    top: 4px;
+    left: 10px;
+}
+.jd_header form{
+    width: 100%;
+    height: 40px;
+    padding-left: 75px;
+    padding-right: 55px;
+    position: relative;
+}
+/*??? ¡ ???*/
+.jd_header form .icon_search{
+    background-position:-60px -109px;
+    width: 20px;
+    height: 20px;
+    display: block;
+
+    position: absolute;
+    top: 10px;
+    left: 85px;
+}
+.jd_header form input{
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    margin-top: 5px;
+    padding-left: 30px;
+}
+/*????*/
+.jd_header .login{
+    width: 50px;
+    height: 40px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    font-size: 15px;
+    color: #fff;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/*ÂÖ²¥Í¼*/
+.jd_banner{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.jd_banner ul:first-child{
+    width: 1000%;
+}
+.jd_banner ul:first-child li{
+    width: 10%;
+    float: left;
+}
+.jd_banner ul:first-child li img{
+    width: 100%;
+    display: block;
+}
+
+/*µã*/
+.jd_banner ul:last-child{
+    width: 118px;
+    height: 6px;
+    position: absolute;
+    left: 50%;
+    margin-left: -59px;
+    bottom: 10px;
+}
+
+.jd_banner ul:last-child li {
+    width: 6px;
+    height: 6px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    margin-left: 10px;
+    float: left;
+}
+.jd_banner ul:last-child li:first-child{
+    margin-left: 0;
+}
+
+.jd_banner ul:last-child li.now{
+    background: #fff;
+}
+[class^="icon_"]{
+    background: url("../images/spite.png") no-repeat;
+}

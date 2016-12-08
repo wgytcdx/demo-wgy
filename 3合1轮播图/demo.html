@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        img {
+            vertical-align: top; /*去掉底边三像素bug*/
+        }
+
+        ul {
+            list-style: none;
+            height: 170px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul li {
+            float: left;
+
+        }
+
+        .box {
+            width: 490px;
+            height: 170px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img {
+            width: 600%;
+            position: absolute;
+
+        }
+
+        .box .circle {
+            width: 240px;
+            height: 15px;
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            margin-left: -120px;
+        }
+
+        .box .circle li {
+            width: 15px;
+            height: 15px;
+            background-color: pink;
+            border-radius: 50%;
+            margin: 0 15px;
+            text-align: center;
+        }
+
+        #arrow-left {
+            width: 20px;
+            height: 50px;
+            background-color: grey;
+            text-align: center;
+            position: absolute;
+            z-index: 10;
+            float: left;
+            top: 50%;
+            margin-top: -25px;
+            font: 400 20px/50px "宋体";
+            opacity: .6;
+            cursor: pointer;
+            display: none;
+        }
+
+        #arrow-right {
+            width: 20px;
+            height: 50px;
+            background-color: grey;
+            text-align: center;
+            position: absolute;
+            z-index: 10;
+            float: left;
+            top: 50%;
+            left: 470px;
+            margin-top: -25px;
+            font: 400 20px/50px "宋体";
+            opacity: .6;
+            cursor: pointer;
+            display: none;
+
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="scroll">
+    <ul class="img" id="img_box">
+        <li><img src="lib/images/01.jpg" alt=""/></li>
+        <li><img src="lib/images/02.jpg" alt=""/></li>
+        <li><img src="lib/images/03.jpg" alt=""/></li>
+        <li><img src="lib/images/04.jpg" alt=""/></li>
+        <li><img src="lib/images/05.jpg" alt=""/></li>
+        <li><img src="lib/images/01.jpg" alt=""/></li>
+    </ul>
+    <ul class="circle" id="circle_box">
+        <li><a href="">1</a></li>
+        <li><a href="">2</a></li>
+        <li><a href="">3</a></li>
+        <li><a href="">4</a></li>
+        <li><a href="">5</a></li>
+    </ul>
+
+    <div>
+        <div id="arrow-left" > < </div>
+        <div id="arrow-right"> > </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    var imgBox = document.getElementById('img_box');
+
+    var scroll = document.getElementById('scroll');
+
+    var arrowLeft = document.getElementById('arrow-left');
+
+    var arrowRight = document.getElementById('arrow-right');
+
+
+    var num = 0;
+
+    var leader = 0;
+
+    var leaderL = 0;
+
+    var leaderR = 0;
+
+    var target = 0;
+
+    var targetL = 0;
+
+    var targetR = 0;
+
+    var timer1 = null;
+
+    var timer2 = null;
+
+    var timer3 = null;
+
+    var timer4 = null;
+
+    var timer5 = null;
+
+
+    timer1 = setInterval(autoPlay, 10);
+    function autoPlay() {
+        num <= -2450 ? num = 0 : num;
+        num = num - 1;
+        imgBox.style.left = num + 'px';
+//        if (num % 490 == 0) {
+//            clearInterval(timer1);
+//
+//            timer2 = setTimeout(function () {
+//                timer1 = setInterval(autoPlay, 10);
+//            }, 3000)
+//        }
+    }
+
+    var atag = document.getElementsByTagName("a");
+    for (var i = 0; i < 5; i++) {
+        atag[i].onmouseover = function () {
+
+            clearInterval(timer1);
+            clearTimeout(timer2);
+            target = (-this.innerHTML + 1) * 490;
+//            console.log(target);
+            num = target;
+
+            timer3 = setInterval(function () {
+                leader = leader + (target - leader) / 10;
+                imgBox.style.left = leader + "px";
+            }, 20)
+
+        };
+
+        atag[i].onmouseout = function () {
+
+            clearInterval(timer3);
+//            timer2 = setTimeout(function(){
+//                timer1=setInterval(autoPlay,10);
+//            } , 3000)
+            timer1 = setInterval(autoPlay, 10);
+
+
+        }
+    }
+    arrowLeft.onmouseout=function(){
+        clearInterval(timer4);
+        clearInterval(timer1);
+        clearTimeout(timer2);
+        timer1 = setInterval(autoPlay, 10);
+
+    };
+    arrowRight.onmouseout=function(){
+        clearInterval(timer5);
+        clearInterval(timer1);
+        clearTimeout(timer2);
+        timer1 = setInterval(autoPlay, 10);
+
+    };
+
+    arrowLeft.onclick = function () {
+        clearInterval(timer1);
+        clearTimeout (timer2);
+        clearInterval(timer3);
+        clearInterval(timer4);
+        clearInterval(timer5);
+//        clearInterval(timer4);
+        num >=0  ? num = -2450 : num;
+        targetL = - parseInt(num/-490) *490 ;
+
+        if(num%490 == 0){
+            targetL += 490 ;
+            num = targetL;
+
+            console.log(targetL);
+        }
+        num = targetL;
+
+
+
+        timer4 = setInterval(function () {
+            leaderL = leaderL + (targetL - leaderL) / 10;
+            imgBox.style.left = leaderL + "px";
+        }, 40)
+    };
+
+    arrowRight.onclick = function () {
+        clearInterval(timer1);
+        clearTimeout (timer2);
+        clearInterval(timer3);
+        clearInterval(timer4);
+        clearInterval(timer5);
+        targetR = - parseInt(num/-490) *490 ;
+        num = targetR;
+        if(num%490 == 0){
+            targetR += -490 ;
+            num = targetR;
+
+            console.log(targetR);
+        }
+        num <= -2450 ? num = 0 : num;
+
+
+        timer5 = setInterval(function () {
+            leaderR = leaderR + (targetR - leaderR) / 10;
+            imgBox.style.left = leaderR + "px";
+        }, 40)
+    };
+
+    scroll.onmouseover= function(){
+        arrowLeft.style.display= 'block';
+        arrowRight.style.display= 'block';
+
+    }
+    scroll.onmouseout= function(){
+        arrowLeft.style.display= 'none';
+        arrowRight.style.display= 'none';
+
+    }
+</script>
